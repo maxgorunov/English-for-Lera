@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For or since: the lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f6f4;--card:#fff;--ink:#17332c;--mut:#566e67;--line:#d3e0db;--acc:#0f7a64;--gold:#f2a93b;--ok:#1d8a5a;--okbg:#dff4e8;--bad:#c2414a;--badbg:#fbe4e5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1f1b;--card:#172a25;--ink:#e6f3ef;--mut:#9fbab2;--line:#2a443d;--acc:#4fd1b3;--ok:#6fdca4;--okbg:#17382c;--bad:#ff8f97;--badbg:#412026}}
+:root[data-theme="dark"]{--bg:#0f1f1b;--card:#172a25;--ink:#e6f3ef;--mut:#9fbab2;--line:#2a443d;--acc:#4fd1b3;--ok:#6fdca4;--okbg:#17382c;--bad:#ff8f97;--badbg:#412026}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 Nunito,system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+h1,h2{font-family:Fredoka,system-ui,sans-serif;font-weight:600;margin:0}h1{font-size:30px;line-height:1.15}h2{font-size:21px}
+.sub{color:var(--mut);margin:6px 0 12px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;display:flex;gap:12px;align-items:center}
+.track{flex:1;height:10px;background:var(--line);border-radius:9px;overflow:hidden}.fill{height:100%;width:0;background:var(--gold);transition:width .3s}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+.note{color:var(--mut);font-size:15px;margin:2px 0 10px}
+.item{padding:10px 0;border-top:1px solid var(--line)}.item:first-of-type{border-top:0}
+.wrong{color:var(--bad);text-decoration:line-through;font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px}
+button,select,input{font:inherit;color:var(--ink)}
+button{cursor:pointer;border:2px solid var(--line);background:var(--card);border-radius:10px;padding:7px 13px;min-height:42px;text-align:left}
+button:hover:not(:disabled){border-color:var(--acc)}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button.sel{border-color:var(--acc);background:var(--line)}button.go{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700;text-align:center}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.go{color:#0f1f1b}}
+button.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok);font-weight:700}button.bad{background:var(--badbg);border-color:var(--bad)}
+.msg{min-height:22px;font-size:15px}.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+.card{background:var(--bg);border-radius:10px;padding:10px 14px;margin:6px 0 8px}
+.card b{font-family:Fredoka,system-ui,sans-serif}
+.mk{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,input{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:7px 10px;min-height:42px}input{width:80px}
+.out{margin-top:12px;font-size:19px}.out div{padding:6px 0}.out .eq{color:var(--mut);font-size:16px}
+.prompt{font-size:22px;font-family:Fredoka,system-ui,sans-serif;text-align:center;padding:20px 10px;background:var(--bg);border-radius:12px;margin:8px 0 10px}
+.end{display:none;text-align:center;border:2px solid var(--gold)}.end.show{display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<h1>For or since: the lab</h1>
+<p class="sub">Four short activities with <b>for</b> and <b>since</b> in the Present Perfect. Level A2. Today in the exercises is <b>10 October 2026</b>.</p>
+<div class="bar"><div class="track"><div class="fill" id="fill"></div></div><b id="sc">0 / 9</b></div>
+
+<section><h2>1. Fix the mistake</h2><p class="note">Every sentence has an error (in red). Choose the correct sentence.</p><div id="a1"></div></section>
+
+<section><h2>2. Who says what?</h2><p class="note">Read the profile. Tap the <u>two</u> true sentences.</p><div id="a2"></div></section>
+
+<section><h2>3. Say it two ways</h2><p class="note">Choose a sentence and a time. The lab shows <b>for</b> and <b>since</b> with the same meaning (using today's date).</p>
+<div class="mk"><select id="act"><option>I have lived here</option><option>I have studied English</option><option>I have had my phone</option><option>I have known my best friend</option><option>I haven't eaten sweets</option></select>
+<input id="num" type="number" min="1" max="30" value="3" aria-label="number"><select id="unit"><option value="d">days</option><option value="w">weeks</option><option value="m">months</option><option value="y" selected>years</option></select></div>
+<div class="out" id="out"></div></section>
+
+<section><h2>4. Ask your partner</h2><p class="note">Tap for a question. Answer with a full sentence with <b>for</b> or <b>since</b>.</p>
+<div class="prompt" id="pr">Tap the button!</div><button class="go" id="nx" style="width:100%">New question</button></section>
+
+<section class="end" id="end"><h2>Lab complete!</h2><p id="endtxt"></p><button class="go" onclick="location.reload()">Try again</button></section>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function shuf(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
+let right=0,done=0;const TOTAL=9;
+function upd(){$('#sc').textContent=right+' / '+TOTAL;$('#fill').style.width=done/TOTAL*100+'%';
+ if(done===TOTAL){$('#end').classList.add('show');$('#endtxt').textContent='First-try score: '+right+' out of '+TOTAL+'.';}}
+// 1
+const fix=[
+ ["I have lived here since five years.","I have lived here for five years.","I live here since five years.","I have lived here from five years."],
+ ["She hasn't called me for Monday.","She hasn't called me since Monday.","She doesn't call me since Monday.","She hasn't called me from Monday."],
+ ["We know each other since 2019.","We have known each other since 2019.","We have known each other for 2019.","We are knowing each other since 2019."],
+ ["How long do you have this phone?","How long have you had this phone?","How long have you this phone?","How long are you having this phone?"],
+ ["He has been ill since three days.","He has been ill for three days.","He is ill for three days.","He has been ill from three days."],
+ ["They have been married for 2015.","They have been married since 2015.","They are married since 2015.","They have married since 2015."]
+];
+fix.forEach(([bad,...opts])=>{
+ const d=el('div','item'),p=el('p');p.innerHTML='<span class="wrong">'+bad+'</span>';
+ const o=el('div','opts'),m=el('p','msg');let tried=false,fin=false;
+ shuf(opts.map((t,i)=>[t,i])).forEach(([t,i])=>{const b=el('button','',t);b.onclick=()=>{
+   if(fin)return;
+   if(i===0){fin=true;done++;if(!tried)right++;b.className='ok';[...o.children].forEach(x=>x.disabled=true);m.className='msg ok';m.textContent='Correct!';upd();}
+   else{tried=true;b.className='bad';b.disabled=true;m.className='msg bad';m.textContent='Not this one. Check the verb form and for / since.';}};o.append(b);});
+ d.append(p,o,m);$('#a1').append(d);});
+// 2
+const prof=[
+ {name:"Leo",info:"Leo moved to Manchester in 2021. He started playing the guitar in September.",
+  s:[["Leo has lived in Manchester for five years.",1],["Leo has played the guitar since September.",1],["Leo has played the guitar for September.",0],["Leo has lived in Manchester since five years.",0]]},
+ {name:"Mira",info:"Mira got her cat in 2020. She last went to the cinema in July.",
+  s:[["Mira has had her cat since 2020.",1],["Mira hasn't been to the cinema since July.",1],["Mira has had her cat for 2020.",0],["Mira hasn't been to the cinema for July.",0]]},
+ {name:"Omar",info:"Omar and Ben met two years ago. Omar has a cold. He felt ill on Thursday.",
+  s:[["Omar has known Ben for two years.",1],["Omar has been ill since Thursday.",1],["Omar has known Ben since two years.",0],["Omar has been ill for Thursday.",0]]}
+];
+prof.forEach(p=>{
+ const d=el('div','item'),c=el('div','card');c.innerHTML='<b>'+p.name+'</b><br>'+p.info;
+ const o=el('div','opts'),m=el('p','msg'),chk=el('button','go','Check');const sel=new Set();let tried=false,fin=false;
+ const bs=shuf(p.s).map(([t,ok])=>{const b=el('button','',t);b.onclick=()=>{if(fin)return;b.classList.toggle('sel');sel.has(t)?sel.delete(t):sel.add(t);};o.append(b);return[b,t,ok];});
+ chk.onclick=()=>{if(fin)return;
+  if(bs.every(([b,t,ok])=>ok===(sel.has(t)?1:0))){fin=true;done++;if(!tried)right++;bs.forEach(([b,t,ok])=>{b.disabled=true;b.className=ok?'ok':'';});chk.remove();m.className='msg ok';m.textContent='Yes! Two true sentences.';upd();}
+  else{tried=true;m.className='msg bad';m.textContent='Not yet. Is the time a period (for) or a point (since)?';bs.forEach(([b])=>b.classList.remove('sel'));sel.clear();}};
+ d.append(c,o,chk,m);$('#a2').append(d);});
+// 3
+const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function lab(){
+ const n=Math.max(1,parseInt($('#num').value)||1),u=$('#unit').value,a=$('#act').value,dt=new Date();
+ const names={d:'day',w:'week',m:'month',y:'year'};
+ const unit=names[u]+(n>1?'s':'');
+ if(u==='d')dt.setDate(dt.getDate()-n);else if(u==='w')dt.setDate(dt.getDate()-7*n);else if(u==='m')dt.setMonth(dt.getMonth()-n);else dt.setFullYear(dt.getFullYear()-n);
+ let sin;if(u==='d')sin=(n<7?DAY[dt.getDay()]:'last '+MON[dt.getMonth()]);else if(u==='w')sin=MON[dt.getMonth()];else if(u==='m')sin=MON[dt.getMonth()]+(n>11?' '+dt.getFullYear():'');else sin=dt.getFullYear();
+ const verb=a.endsWith("sweets")?"":"";
+ $('#out').innerHTML='<div><b>'+a+' for '+n+' '+unit+'.</b></div><div class="eq">= (same meaning)</div><div><b>'+a+' since '+sin+'.</b></div>';}
+['act','num','unit'].forEach(i=>$('#'+i).addEventListener('input',lab));lab();
+// 4
+const qs=["How long have you studied English?","How long have you lived in your house or flat?","How long have you had your phone?","How long have you known your best friend?","How long have you been at this school or job?","How long have you had your favourite shoes?","How long have you been awake today?","When did you last eat pizza? Say: I haven't eaten pizza for / since …","How long have you used this app?","How long have you known your teacher?"];
+let qi=shuf(qs),k=0;$('#nx').onclick=()=>{$('#pr').textContent=qi[k%qi.length];k++;};
+upd();
+</script>
+</body>
+</html>
